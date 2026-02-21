@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turun GP</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #01210f, #1f2f3a);
+    color: white;
+    text-align: center;
+}
+
+/* HERO */
+header {
+    padding: 80px 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+}
+
+h1 {
+    font-size: clamp(28px, 6vw, 52px);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: clamp(20px, 4vw, 28px);
+}
+
+p {
+    max-width: 800px;
+    margin: 0 auto 15px auto;
+    line-height: 1.6;
+}
+
+/* SECTION CARDS */
+section {
+    padding: 50px 20px;
+    margin: 20px auto;
+    width: min(95%, 1000px);
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+}
+
+/* GALLERY */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.gallery img {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* COUNTDOWN */
+#countdown {
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: bold;
+    margin-top: 20px;
+    color: #00ff88;
+}
+
+/* RESPONSIVE VIDEO */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* MOBILE TWEAKS */
+@media (max-width: 600px) {
+    header {
+        padding: 50px 15px;
+    }
+
+    section {
+        padding: 30px 15px;
+    }
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* F1 START LIGHTS */
+.lights {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.light {
+    width: 35px;
+    height: 35px;
+    background: #330000;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.light.active {
+    background: red;
+    box-shadow: 0 0 25px red;
+}
+
+/* DIGITAL COUNTDOWN STYLE */
+#countdown {
+    font-family: "Courier New", monospace;
+    font-size: clamp(22px, 5vw, 36px);
+    background: black;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    color: #00ff88;
+    box-shadow: 0 0 20px #00ff88;
+}
+
+/* Scroll animation */
+section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================
+   🏁 RACE WEEKEND SCHEDULE
+========================== */
+
+.schedule-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.schedule-day {
+    background: rgba(0,0,0,0.6);
+    padding: 25px;
+    border-radius: 15px;
+    width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.1);
+}
+
+.schedule-day:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(0,255,136,0.6);
+}
+
+.schedule-day h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #00ff88;
+    letter-spacing: 1px;
+}
+
+.event {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-family: "Courier New", monospace;
+}
+
+.event:last-child {
+    border-bottom: none;
+}
+
+.time {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.name {
+    color: #cccccc;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .schedule-day {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+/* ==========================
+   📋 RULES SECTION
+========================== */
+
+#rules {
+    position: relative;
+}
+
+.rules-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.rule-card {
+    background: rgba(0, 0, 0, 0.65);
+    padding: 30px 25px;
+    border-radius: 18px;
+    width: 260px;
+    position: relative;
+    border: 2px solid rgba(0,255,136,0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.rule-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px rgba(0,255,136,0.6);
+    border-color: #00ff88;
+}
+
+.rule-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: rgba(0,255,136,0.15);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-family: "Courier New", monospace;
+}
+
+.rule-card h3 {
+    margin-bottom: 15px;
+    color: #00ff88;
+    letter-spacing: 1px;
+}
+
+.rule-card p {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .rule-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Turun GP 2026, LETS FCKING GO!</h1>
+	<div class="lights">
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+</div>
+    <p>Tuomisen back-to-back gold medal, Veetin hermojen kiristely, Koistisen armoton keskittyminen ja Allun yapadapa.. Mitä tiedossa tänä vuonna?</p>
+	<h2>JOKO MENNÄÄN, HÄH?</h2>
+    <p>Turun GP vuosimallia 2026 alkaa:</p>
+    <div id="countdown"></div>
+</header>
+
+<section id="schedule">
+    <h2>🏁 Race Weekend Schedule</h2>
+
+    <div class="schedule-container">
+
+        <div class="schedule-day">
+            <h3>Perjantai</h3>
+            <div class="event">
+                <span class="time">18:00</span>
+                <span class="name">Saapuminen & Track Walk</span>
+            </div>
+            <div class="event">
+                <span class="time">20:00</span>
+                <span class="name">Free Practice</span>
+            </div>
+        </div>
+
+        <div class="schedule-day">
+            <h3>Lauantai</h3>
+            <div class="event">
+                <span class="time">14:00</span>
+                <span class="name">Time Attack</span>
+            </div>
+            <div class="event">
+                <span class="time">18:00</span>
+                <span class="name">Race Start</span>
+            </div>
+        </div>
+
+        <div class="schedule-day">
+            <h3>Sunnuntai</h3>
+            <div class="event">
+                <span class="time">11:00</span>
+                <span class="name">Recovery Breakfast</span>
+            </div>
+            <div class="event">
+                <span class="time">13:00</span>
+                <span class="name">Podium Ceremony 🏆</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section>
+    <h2>Radan esittely</h2>
+    <p>Tälle vuodelle kisaradaksi valikoitui Oulton Park Race Circuit. </p>
+    <img src="https://tempestaracing.com/wp-content/media/2022/11/4-Oulton-Park-1.jpeg">
+	<br></br>
+<div class="video-container">
+  <iframe 
+    src="https://www.youtube.com/embed/7LUzsmLUgqw"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div>
+	
+</section>
+
+<section>
+    <h2>Auton esittely</h2>
+</section>
+
+<section id="rules">
+    <h2>📋 Race Control – Säännöt</h2>
+
+    <div class="rules-container">
+
+        <div class="rule-card">
+            <div class="rule-number">01</div>
+            <h3>Fair Play</h3>
+            <p>
+                Ei tahallista törmäilyä, ei oikaisuja, ei sabotointia.
+                Kilpaillaan kovaa mutta rehdisti.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">02</div>
+            <h3>Track Limits</h3>
+            <p>
+                Kaikki neljä rengasta radan sisäpuolella.
+                Toistuvista rikkomuksista seuraa aikarangaistus.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">03</div>
+            <h3>Start Procedure</h3>
+            <p>
+                Lähtö tapahtuu valojen sammuttua.
+                Varaslähtö = +5 sekuntia kokonaisaikaan.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">04</div>
+            <h3>Respect the Champion</h3>
+            <p>
+                Hallitsevaa mestaria saa haastaa —
+                mutta ei itkeä jos häviää.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<script>
+// ==========================
+// 🏁 F1 START LIGHT ANIMATION
+// ==========================
+const lights = document.querySelectorAll(".light");
+
+function startLights() {
+    lights.forEach((light, index) => {
+        setTimeout(() => {
+            light.classList.add("active");
+        }, index * 700);
+    });
+
+    // Sammutetaan kaikki kerralla (GO!)
+    setTimeout(() => {
+        lights.forEach(light => light.classList.remove("active"));
+    }, 4000);
+}
+
+startLights();
+
+
+// ==========================
+// 🚗 COUNTDOWN
+// ==========================
+const targetDate = new Date(2026, 8, 12, 18, 0, 0);
+
+function updateCountdown() {
+    const now = new Date();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+        document.getElementById("countdown").innerHTML = "VALOT SAMMUU – MENNÄÄN! 🏁";
+        return;
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+
+// ==========================
+// 💥 SCROLL ANIMATION
+// ==========================
+const sections = document.querySelectorAll("section");
+
+function revealSections() {
+    const trigger = window.innerHeight * 0.85;
+
+    sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < trigger) {
+            section.classList.add("visible");
+        }
+    });
+}
+
+window.addEventListener("scroll", revealSections);
+revealSections();
+</script>
+
+</body>
+</html>
